@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Public } from './auth/public.decorateur';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
 
   @Get()
+  @Public()
   getHello(): string {
-    return this.appService.getHello();
+    return "Bienvenue sur Mon Social Network API </br>Pour plus d'info sur l'api rdv sur <a href='/api'>le swagger<a/>";
   }
 }

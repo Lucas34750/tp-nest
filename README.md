@@ -249,6 +249,14 @@ Toutes les requêtes sont enregistrées dans le fichier `requests.log` à la rac
 [2025-09-05T14:45:15.678Z] POST /users/follow
 ```
 
+## 📚 Swagger
+
+Le Swagger est activé, la documentation est disponible sur :
+```
+http://localhost:3000/api
+
+```
+
 ## ✅ Règles importantes
 
 1. Toutes les routes **hors auth** nécessitent un JWT valide.
