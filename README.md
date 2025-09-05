@@ -10,8 +10,8 @@ Permet la gestion des utilisateurs, posts, likes et relations de suivi.
 Cloner le projet et installer les dépendances :
 
 ```bash
-git clone <URL_DE_TON_REPO>
-cd <NOM_DU_PROJET>
+git clone https://github.com/Lucas34750/tp-nest.git
+cd tp-nest
 npm install
 ````
 
