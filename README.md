@@ -73,14 +73,13 @@ Authorization: Bearer <token>
 
 ---
 
-## 📝 Routes principales
+## 📝 Routes
 
-### 1. Auth
+### 1. AuthController (`/auth`)
 
-#### `POST /auth/signup`
-
-* **Description** : créer un compte utilisateur
-* **Body** :
+#### `POST /auth/signin`
+- **Description** : créer un compte utilisateur  
+- **Body** (DTO `CreateUserDto`) :
 
 ```json
 {
@@ -88,15 +87,15 @@ Authorization: Bearer <token>
   "username": "lucas",
   "password": "motdepasse123"
 }
-```
+````
 
 * **Accès** : public
-* **Réponse** : l’utilisateur créé (sans le mot de passe)
+* **Réponse** : utilisateur créé (sans mot de passe)
 
 #### `POST /auth/login`
 
 * **Description** : se connecter
-* **Body** :
+* **Body** (DTO `LoginDto`) :
 
 ```json
 {
@@ -113,25 +112,34 @@ Authorization: Bearer <token>
   "access_token": "<JWT_TOKEN>"
 }
 ```
-* ***Token à mettre dans le Authorization: Bearer <token>***
+
 ---
 
-### 2. Users
+### 2. UsersController (`/users`)
 
 #### `GET /users/profile`
 
 * **Description** : récupérer son profil
 * **Accès** : authentifié
-* **Réponse** :
+* **Réponse** : informations de l’utilisateur connecté
 
-```json
-{
-  "id": 1,
-  "email": "user@example.com",
-  "username": "lucas",
-  "dateCreate": "2025-09-05T14:00:00.000Z"
-}
-```
+#### `GET /users/profile/:id`
+
+* **Description** : récupérer le profil d’un utilisateur par ID
+* **Accès** : authentifié
+* **Réponse** : informations de l’utilisateur ciblé
+
+#### `GET /users/follows`
+
+* **Description** : liste des utilisateurs suivis par l’utilisateur connecté
+* **Accès** : authentifié
+* **Réponse** : tableau des utilisateurs suivis
+
+#### `GET /users/followers`
+
+* **Description** : liste des abonnés de l’utilisateur connecté
+* **Accès** : authentifié
+* **Réponse** : tableau des abonnés
 
 #### `POST /users/follow`
 
@@ -147,7 +155,7 @@ Authorization: Bearer <token>
 * **Accès** : authentifié
 * **Réponse** : liste des relations follow créées
 
-#### `DELETE /users/unfollow`
+#### `POST /users/unfollow`
 
 * **Description** : ne plus suivre un utilisateur
 * **Body** (DTO `FollowDto`) :
@@ -163,7 +171,7 @@ Authorization: Bearer <token>
 
 ---
 
-### 3. Posts
+### 3. PostController (`/post`)
 
 #### `POST /post`
 
@@ -179,6 +187,18 @@ Authorization: Bearer <token>
 
 * **Accès** : authentifié
 * **Réponse** : post créé
+
+#### `GET /post`
+
+* **Description** : récupérer tous les posts
+* **Accès** : authentifié
+* **Réponse** : tableau de posts avec auteur et likes
+
+#### `GET /post/feed`
+
+* **Description** : récupérer le feed personnalisé (posts des utilisateurs suivis)
+* **Accès** : authentifié
+* **Réponse** : tableau de posts filtrés par follow
 
 #### `DELETE /post/:id`
 
@@ -202,7 +222,7 @@ Authorization: Bearer <token>
 * **Règle** : un utilisateur **ne peut liker qu’une seule fois un post**
 * **Réponse** : like créé
 
-#### `DELETE /post/unlike`
+#### `POST /post/unlike`
 
 * **Description** : retirer un like
 * **Body** :
@@ -217,7 +237,8 @@ Authorization: Bearer <token>
 * **Règle** : un utilisateur **ne peut retirer que ses propres likes**
 * **Réponse** : like supprimé
 
----
+``
+
 
 ## 📂 Journalisation
 
